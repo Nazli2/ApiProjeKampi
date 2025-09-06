@@ -20,4 +20,5 @@ public class ApiContext : DbContext
     public DbSet<Service> Services { get; set; }
     public DbSet<Testimonial> Testimonials { get; set; }
     public DbSet<YummyEvent> YummyEvents { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
 }
