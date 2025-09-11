@@ -1,8 +1,7 @@
-﻿@model List<ResultFeatureDto>
+﻿@model GetFeatureByIdDto
 @{
     ViewData["Title"] = "UpdateFeature";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-	int count = 0;
 }
 
 <section class="section">
@@ -11,47 +10,28 @@
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Öne Çıkan Alan İşlemleri</h4>
+                        <h4>Öne Çıkan Alan Güncelleme Sayfası</h4>
                     </div>
-                    <p>Tema bütünlüğünün bozulmaması adına sadece 1 tane öne çıkan alan bilgisi eklenebilir.</p>
                     <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Başlık</th>
-                                    <th scope="col">Alt Başlık</th>
-                                    <th scope="col">Açıklama</th>
-                                    <th scope="col">Sil</th>
-                                    <th scope="col">Güncelle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
-                                    count++;
-                                    <tr>
-                                        <th scope="row">@count</th>
-                                        <td>@item.Title</td>
-                                        <td>@item.SubTitle</td>
-                                        <td>@item.Description</td>
-                                        <td><a href="/Feature/DeleteFeature/@item.FeatureId/" class="btn btn-danger">Sil</a></td>
-                                        <td><a href="/Feature/UpdateFeature/@item.FeatureId/" class="btn btn-success">Güncelle</a></td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                        @if(Model.Count != 1)
-                        {
-                            
-                        }
-                        else
-                        {
-                        <td><a href="/Feature/CreateFeature/" class="btn btn-info">Yeni Feature Girişi</a></td>
-                        }
-                        
+                        <form method="post">
+							<input type="hidden" asp-for="FeatureId" />
+                            <label>Başlık</label>
+                            <input type="text" asp-for="Title" class="form-control" />
+                            <br />
+                            <label>Alt Başlık</label>
+                            <input type="text" asp-for="SubTitle" class="form-control" />
+                            <br />
+                            <label>Açıklama</label>
+                            <input type="text" asp-for="Description" class="form-control" />
+                            <br />
+                            <label>Görsel URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control" />
+                            <br />
+                            <label>Video URL (Embed Link)</label>
+                            <input type="text" asp-for="VideoUrl" class="form-control" />
+                            <br />
+                            <button class="btn btn-success">Öne Çıkan Alanı Güncelle</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -59,4 +39,3 @@
         </div>
     </div>
 </section>
-
