@@ -1,7 +1,6 @@
-﻿@model List<ResultProductDto>
-
+﻿@model List<ResultFeatureDto>
 @{
-    ViewData["Title"] = "ProductList";
+    ViewData["Title"] = "UpdateFeature";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 	int count = 0;
 }
@@ -12,16 +11,17 @@
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Ürün Listesi Yönetimi</h4>
+                        <h4>Öne Çıkan Alan İşlemleri</h4>
                     </div>
+                    <p>Tema bütünlüğünün bozulmaması adına sadece 1 tane öne çıkan alan bilgisi eklenebilir.</p>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Ürün Adı</th>
-                                    <th scope="col">Ürün Fiyatı</th>
-                                    <th scope="col">Ürün Kategorisi</th>
+                                    <th scope="col">Başlık</th>
+                                    <th scope="col">Alt Başlık</th>
+                                    <th scope="col">Açıklama</th>
                                     <th scope="col">Sil</th>
                                     <th scope="col">Güncelle</th>
                                 </tr>
@@ -33,17 +33,25 @@
                                     count++;
                                     <tr>
                                         <th scope="row">@count</th>
-                                        <td>@item.ProductName</td>
-                                        <td>@item.Price</td>
-                                        <td>@item.CategoryName</td>
-                                        <td><a href="/Product/DeleteProduct/@item.ProductId/" class="btn btn-danger">Sil</a></td>
-                                        <td><a href="/Product/UpdateProduct/@item.ProductId/" class="btn btn-success">Güncelle</a></td>
+                                        <td>@item.Title</td>
+                                        <td>@item.SubTitle</td>
+                                        <td>@item.Description</td>
+                                        <td><a href="/Feature/DeleteFeature/@item.FeatureId/" class="btn btn-danger">Sil</a></td>
+                                        <td><a href="/Feature/UpdateFeature/@item.FeatureId/" class="btn btn-success">Güncelle</a></td>
                                     </tr>
                                 }
 
                             </tbody>
                         </table>
-                        <td><a href="/Product/CreateProduct/" class="btn btn-info">Yeni Ürün Girişi</a></td>
+                        @if(Model.Count != 1)
+                        {
+                            
+                        }
+                        else
+                        {
+                        <td><a href="/Feature/CreateFeature/" class="btn btn-info">Yeni Feature Girişi</a></td>
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -51,5 +59,4 @@
         </div>
     </div>
 </section>
-
 
