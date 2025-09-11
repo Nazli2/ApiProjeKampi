@@ -22,7 +22,9 @@
                             <input type="text" asp-for="Price" class="form-control" />
                             <br />
                             <label>Ürün Kategorisi</label>
-                            <input type="text" asp-for="CategoryId" class="form-control" />
+                            <select asp-for="CategoryId" class="form-control" asp-items="(IEnumerable<SelectListItem>)ViewBag.v">
+								<option value="">--Kategori Seçiniz--</option>
+                            </select>
                             <br />
                             <label>Ürün Açıklaması</label>
                             <textarea class="form-control" asp-for="ProductDescription" rows="5"></textarea>

@@ -1,5 +1,7 @@
-﻿using ApiProjeKampi.WebUI.Dtos.ProductDtos;
+﻿using ApiProjeKampi.WebUI.Dtos.CategoryDtos;
+using ApiProjeKampi.WebUI.Dtos.ProductDtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -27,8 +29,22 @@ public class ProductController : Controller
     }
 
     [HttpGet]
-    public IActionResult CreateProduct()
+    public async Task<IActionResult> CreateProduct()
     {
+        var client = _httpClientFactory.CreateClient();
+        var responseMessage = await client.GetAsync("https://localhost:7189/api/Categories");
+
+        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+        var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+        List<SelectListItem> categoryValues = (from x in values
+                                        select new SelectListItem
+                                        {
+                                            Text = x.CategoryName,
+                                            Value = x.CategoryId.ToString()
+                                        }).ToList();
+
+        ViewBag.v = categoryValues;
+
         return View();
     }
 
@@ -38,7 +54,7 @@ public class ProductController : Controller
         var client = _httpClientFactory.CreateClient();
         var jsonData = JsonConvert.SerializeObject(creaateProductDto);
         StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-        var responseMessage = await client.PostAsync("https://localhost:7189/api/Products", stringContent);
+        var responseMessage = await client.PostAsync("https://localhost:7189/api/Products/CreateProductWithCategory", stringContent);
         if (responseMessage.IsSuccessStatusCode)
         {
             return RedirectToAction("ProductList");
