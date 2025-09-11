@@ -1,5 +1,6 @@
 ﻿using ApiProjeKampi.WebApi.Context;
 using ApiProjeKampi.WebApi.Dtos.CategoryDtos;
+using ApiProjeKampi.WebApi.Dtos.FeatureDtos;
 using ApiProjeKampi.WebApi.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -54,9 +55,12 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult UpdateCategory(Category category)
+    public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
     {
-        _context.Categories.Update(category);
+        //_context.Categories.Update(category);
+        //_context.SaveChanges();
+        var value = _mapper.Map<Category>(updateCategoryDto);
+        _context.Categories.Update(value);
         _context.SaveChanges();
         return Ok("Kategori güncelleme işlemi başarılı.");
     }
